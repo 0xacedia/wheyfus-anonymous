@@ -1,12 +1,15 @@
 import { BodyLayout } from "../components/layout/BodyLayout";
+import { EthereumProvider } from "../context/EthereumContext";
 
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <BodyLayout id="app-root">
-      <Component {...pageProps} />
-    </BodyLayout>
+    <EthereumProvider>
+      <BodyLayout id="app-root">
+        <Component {...pageProps} />
+      </BodyLayout>
+    </EthereumProvider>
   );
 }
 
