@@ -39,7 +39,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
 
-          <link rel="icon" type="image/svg" href="/logo.svg"></link>
+          <link rel="icon" type="image/svg" href="/wheyfu.png"></link>
         </Head>
 
         <body>
