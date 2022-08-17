@@ -24,7 +24,7 @@ const useConvertToOption = () => {
         Math.floor(Math.random() * 100)
       );
       await tx.wait();
-      alert(`confirmed tx: created #${amount} wheyfu call options`);
+      alert(`confirmed tx: created #${amount} wheyfu call options `);
     } catch (e) {
       console.error(e);
       console.log(e.message);
