@@ -56,7 +56,7 @@ export const Mint = () => {
     <div>
       <h3>Mint (uwu)</h3>
       <p>Invite only</p>
-      <label for="mint-amount">You can mint {amountLeft} wheyfus: </label>
+      <label htmlFor="mint-amount">You can mint {amountLeft} wheyfus: </label>
       <input
         id="mint-amount"
         placeholder="enter amount to mint"
