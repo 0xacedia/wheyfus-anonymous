@@ -59,7 +59,7 @@ export const CallOptions = () => {
               #{orderHash.slice(0, 6)} //{" "}
               {constants.MaxUint256.sub(
                 BigNumber.from(orderDetails.erc721Assets[0].tokenId)
-              ).toString()}
+              ).toString()}{" "}
               wheyfus //{" "}
               <a href={`https://rinkeby.putty.finance/order/${orderHash}`}>
                 View on putty

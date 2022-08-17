@@ -16,7 +16,7 @@ const WheyfuSelect = ({ onChange, value }) => {
   const [wheyfus, loading] = useNfts({
     offset,
     limit,
-    address: process.env.NEXT_PUBLIC_WHEYFU_ADDRESS,
+    address,
     tokenAddress: process.env.NEXT_PUBLIC_WHEYFU_ADDRESS,
   });
 

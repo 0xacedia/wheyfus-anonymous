@@ -6,7 +6,12 @@ export const Explainer = () => {
         <li>You mint some wheyfu's</li>
         <li>
           Take equal parts wheyfus and eth and LP them into a shared{" "}
-          <a href="https://sudoswap.xyz/#/swap">sudoswap</a> pool.
+          <a
+            href={`https://sudoswap.xyz/#/swap/${process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS}`}
+          >
+            sudoswap
+          </a>{" "}
+          pool.
         </li>
         <li>Receive some LP tokens representing your share in the pool.</li>
         <li>Take those LP tokens and bond them for a fixed term.</li>
