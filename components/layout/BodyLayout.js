@@ -4,5 +4,5 @@ export const BodyLayout = styled.div`
   display: grid;
   row-gap: 24px;
   padding-left: 24px;
-  background: ${Date.now() % 2 == 0 ? "pink" : "white"};
+  background: ${Date.now() % 25 == 0 ? "pink" : "white"};
 `;

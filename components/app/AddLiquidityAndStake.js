@@ -1,67 +1,49 @@
+import { Contract } from "ethers";
 import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useSigner } from "wagmi";
+import { useAlchemy } from "../../hooks/useAlchemy";
 import { usePool } from "../../hooks/usePool";
 import { ConnectWalletButton } from "../core/ConnectWalletButton";
+import wheyfuAbi from "../../contracts/wheyfu.abi.json";
+import { formatEther } from "ethers/lib/utils";
+import { TERMS } from "../../constants";
+import { useNfts } from "../../hooks/useNfts";
 
 const limit = 6;
-const useWheyfus = ({ offset }) => {
-  const { address } = useAccount();
-  const [wheyfus, setWheyfus] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const fetchMore = async () => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
-
-    console.log("offset", offset);
-
-    // dummy wheyfus
-    const newWheyfus = [];
-    for (let i = offset; i < offset + limit; i++) {
-      // fetch tokenURI
-      newWheyfus.push({
-        image: "https://pbs.twimg.com/media/D-keKHaVUAA4qbZ.jpg",
-        tokenId: i,
-      });
-    }
-
-    setWheyfus(newWheyfus);
-
-    if (address) {
-      // fetch address wheyfus
-    } else {
-      // fetch the first n wheyfus
-    }
-  };
-
-  useEffect(() => {
-    fetchMore(offset);
-  }, [address, offset]);
-
-  return [wheyfus, loading];
-};
-
 const WheyfuSelect = ({ onChange, value }) => {
   const [offset, setOffset] = useState(0);
-  const [wheyfus, loading] = useWheyfus({ offset });
+  const { address } = useAccount();
+  const [wheyfus, loading] = useNfts({
+    offset,
+    limit,
+    address: process.env.NEXT_PUBLIC_WHEYFU_ADDRESS,
+    tokenAddress: process.env.NEXT_PUBLIC_WHEYFU_ADDRESS,
+  });
 
   return (
     <div>
       <b>Select some of your wheyfus to LP --</b>
-      <div style={{ display: "flex", margin: "12px 0" }}>
+      <div
+        style={{
+          display: "flex",
+          margin: "12px 0",
+          maxWidth: "100%",
+          flexWrap: "wrap",
+        }}
+      >
         {loading
           ? "loading wheyfus..."
           : wheyfus.length == 0
           ? "You dont have any wheyfus (hmph!)"
           : wheyfus.map(({ image, tokenId }, i) => {
               const selected = value.includes(tokenId);
-              console.log(value[i], tokenId);
 
               return (
                 <img
                   style={{
-                    width: 100,
+                    height: 300,
                     marginRight: 12,
+                    marginBottom: 12,
                     cursor: "pointer",
                     border: selected ? "2px dashed red" : "none",
                   }}
@@ -94,7 +76,34 @@ const WheyfuSelect = ({ onChange, value }) => {
 
 export const AddLiquidityAndStake = () => {
   const [tokenIds, setTokenIds] = useState([]);
+  const [termIndex, setTermIndex] = useState(1);
   const { price } = usePool();
+  const { data: signer } = useSigner();
+
+  const addLiquidityAndStake = async () => {
+    const wheyfu = new Contract(
+      process.env.NEXT_PUBLIC_WHEYFU_ADDRESS,
+      wheyfuAbi,
+      signer
+    );
+
+    try {
+      const tx = await wheyfu.addLiquidityAndStake(
+        tokenIds,
+        price,
+        price,
+        termIndex,
+        {
+          value: price.mul(tokenIds.length),
+        }
+      );
+      await tx.wait();
+      alert(`Confirmed tx: Staked and LP'd ${tokenIds.length} wheyfus`);
+    } catch (e) {
+      console.error(e);
+      alert("error: " + (e.reason || e.message || e.toString()));
+    }
+  };
 
   return (
     <div style={{ position: "relative", width: "fit-content" }}>
@@ -107,17 +116,12 @@ export const AddLiquidityAndStake = () => {
       <WheyfuSelect value={tokenIds} onChange={setTokenIds} />
 
       <p>
-        LP amount: {tokenIds.length} wheyfus + {price * tokenIds.length} ether
+        LP amount: {tokenIds.length} wheyfus +{" "}
+        {formatEther(price) * tokenIds.length} ether
       </p>
 
-      <select>
-        {[
-          { text: "1 day (0% yield boost)" },
-          { text: "30 days (20% yield boost)" },
-          { text: "90 days (50% yield boost)" },
-          { text: "180 days (100% boost)" },
-          { text: "365 days (200% boost)" },
-        ].map(({ text }, termIndex) => (
+      <select onChange={(e) => setTermIndex(e.target.value)} value={termIndex}>
+        {TERMS.map(({ text }, termIndex) => (
           <option value={termIndex} key={termIndex}>
             {text}
           </option>
@@ -125,7 +129,7 @@ export const AddLiquidityAndStake = () => {
       </select>
 
       <ConnectWalletButton>
-        <button>LP and bond</button>
+        <button onClick={() => addLiquidityAndStake()}>LP and bond</button>
       </ConnectWalletButton>
 
       <img

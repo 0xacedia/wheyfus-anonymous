@@ -12,7 +12,8 @@ export default function Home() {
   return (
     <div>
       <h1>Welcome to wheyfus anonymous :3</h1>
-      <p>A bunch of really /healthy/ 2d grils</p>
+      <p>A friendly group of really healthy 2d grils</p>
+      <Socials />
       <ConnectWalletButton />
       <Mint />
       <AddLiquidityAndStake />
@@ -21,7 +22,6 @@ export default function Home() {
       <Bonds />
       <ConvertToOption />
       <CallOptions />
-      <Socials />
     </div>
   );
 }
