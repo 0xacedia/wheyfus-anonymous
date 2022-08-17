@@ -21,7 +21,7 @@ export const Explainer = () => {
         </li>
         <li>
           Convert those call option tokens into actual call options via{" "}
-          <a href="https://putty.finance">putty</a>.
+          <a href="https://rinkeby.putty.finance">putty</a>.
         </li>
         <li>Exercise the call options.</li>
         <li>With your new wheyfus you can then go back to step 2.</li>
