@@ -22,7 +22,7 @@ export const Socials = () => {
           <a href="https://discord.com">discord (not ready yet)</a>
         </li>
         <li>
-          <Link href="/about">about</Link>
+          <Link href="/docs">docs</Link>
         </li>
       </ul>
 

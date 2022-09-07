@@ -1,7 +1,7 @@
-export default function About() {
+export default function Docs() {
   return (
     <div style={{ maxWidth: 500 }}>
-      <h1>About</h1>
+      <h1>Docs</h1>
 
       <p>
         hiya! ~~ welcome to wheyfus :3 ~ <br />
