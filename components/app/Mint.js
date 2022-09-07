@@ -50,8 +50,6 @@ export const Mint = () => {
   const { amountLeft, mint } = useMint();
   const [amount, setAmount] = useState();
 
-  console.log("amount left", amountLeft);
-
   return (
     <div>
       <h3>Mint (uwu)</h3>

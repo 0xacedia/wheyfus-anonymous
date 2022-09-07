@@ -9,8 +9,6 @@ export const useNfts = ({ offset, limit, address, tokenAddress }) => {
   const fetchMore = async () => {
     setLoading(true);
 
-    console.log("fetching", address, tokenAddress);
-
     if (address) {
       // fetch address nfts
       let cachedPageKey;
@@ -48,8 +46,6 @@ export const useNfts = ({ offset, limit, address, tokenAddress }) => {
     () => nfts.slice(offset, offset + limit),
     [nfts, offset, limit]
   );
-
-  console.log("nfts", tokenAddress, nfts, subNfts);
 
   return [subNfts, loading];
 };

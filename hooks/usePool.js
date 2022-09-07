@@ -15,7 +15,6 @@ export const usePool = () => {
     address: process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS,
     tokenAddress: process.env.NEXT_PUBLIC_WHEYFU_ADDRESS,
   });
-  console.log("found", wheyfus);
 
   const { data: signer } = useSigner();
   const provider = useProvider();
