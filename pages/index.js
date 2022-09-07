@@ -19,7 +19,8 @@ export default function Home() {
       <AddLiquidityAndStake />
       <WithdrawLiquidity />
       <Explainer />
-      <Bonds />
+      <Bonds bondType={"CALL_OPTION"} />
+      <Bonds bondType={"FEE"} />
       <ConvertToOption />
       <CallOptions />
     </div>

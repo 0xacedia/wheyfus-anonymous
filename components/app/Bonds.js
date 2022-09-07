@@ -6,7 +6,8 @@ import wheyfuAbi from "../../contracts/wheyfu.abi.json";
 import { formatEther } from "ethers/lib/utils";
 import { TERMS } from "../../constants";
 
-const useBonds = () => {
+const useBonds = (bondType) => {
+  const isFeeBond = bondType === "FEE";
   const { address } = useAccount();
   const [bonds, setBonds] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,7 +23,8 @@ const useBonds = () => {
 
   const claim = async (tokenId) => {
     try {
-      const tx = await wheyfu.unstake(tokenId);
+      const method = isFeeBond ? "feeUnstake" : "optionUnstake";
+      const tx = await wheyfu[method](tokenId);
       await tx.wait();
       alert(`confirmed tx: claimed bond #${tokenId}`);
     } catch (e) {
@@ -44,7 +46,11 @@ const useBonds = () => {
           address,
           {
             pageKey: cachedPageKey,
-            contractAddresses: [process.env.NEXT_PUBLIC_BONDING_NFT_ADDRESS],
+            contractAddresses: [
+              isFeeBond
+                ? process.env.NEXT_PUBLIC_FEE_BONDING_NFT_ADRESS
+                : process.env.NEXT_PUBLIC_OPTION_BONDING_NFT_ADDRESS,
+            ],
             withMetadata: true,
           }
         );
@@ -58,8 +64,12 @@ const useBonds = () => {
         raw
           .sort((a, b) => a.tokenId - b.tokenId)
           .map(async ({ tokenId }) => {
-            const bond = await wheyfu.bonds(tokenId);
-            const earned = await wheyfu.earned(tokenId);
+            const bond = await wheyfu[isFeeBond ? "feeBonds" : "bonds"](
+              tokenId
+            );
+            const earned = await wheyfu[
+              isFeeBond ? "feeEarned" : "optionEarned"
+            ](tokenId);
             const duration = TERMS[bond.termIndex].value;
 
             return {
@@ -87,13 +97,13 @@ const useBonds = () => {
   return [bonds, claim, loading];
 };
 
-export const Bonds = () => {
-  const [bonds, claim, loading] = useBonds();
-  console.log("bonds", bonds);
+export const Bonds = ({ bondType }) => {
+  const isFeeBond = bondType === "FEE";
+  const [bonds, claim, loading] = useBonds(bondType);
 
   return (
     <div>
-      <h3>Your bonds</h3>
+      <h3>Your {isFeeBond ? "fee" : "call option"} bonds</h3>
       {loading ? (
         <p>Loading ur bonds...</p>
       ) : bonds.length == 0 ? (
@@ -108,7 +118,8 @@ export const Bonds = () => {
                 {Date.now() > expiration
                   ? "MATURED!"
                   : new Date(expiration).toISOString()}{" "}
-                // yield: {Number(earned).toFixed(4)} call tokens
+                // yield: {Number(earned).toFixed(4)}{" "}
+                {isFeeBond ? "ETH" : "call tokens"}
                 {Date.now() > expiration && (
                   <button onClick={() => claim(tokenId)}>claim</button>
                 )}

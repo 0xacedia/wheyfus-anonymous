@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const Socials = () => {
   return (
     <div>
@@ -14,10 +16,13 @@ export const Socials = () => {
           <a href="https://rinkeby.putty.finance">putty</a>
         </li>
         <li>
-          <a href="https://twitter.com">twitter</a>
+          <a href="https://twitter.com">twitter (not ready yet)</a>
         </li>
         <li>
-          <a href="https://discord.com">discord</a>
+          <a href="https://discord.com">discord (not ready yet)</a>
+        </li>
+        <li>
+          <Link href="/about">about</Link>
         </li>
       </ul>
 

@@ -77,6 +77,7 @@ const WheyfuSelect = ({ onChange, value }) => {
 export const AddLiquidityAndStake = () => {
   const [tokenIds, setTokenIds] = useState([]);
   const [termIndex, setTermIndex] = useState(1);
+  const [bondType, setBondType] = useState("CALL_OPTION");
   const { price } = usePool();
   const { data: signer } = useSigner();
 
@@ -88,17 +89,19 @@ export const AddLiquidityAndStake = () => {
     );
 
     try {
-      const tx = await wheyfu.addLiquidityAndStake(
-        tokenIds,
-        price,
-        price,
-        termIndex,
-        {
-          value: price.mul(tokenIds.length),
-        }
-      );
+      const method =
+        bondType === "CALL_OPTION"
+          ? "addLiquidityAndOptionStake"
+          : "addLiquidityAndFeeStake";
+      const tx = await wheyfu[method](tokenIds, price, price, termIndex, {
+        value: price.mul(tokenIds.length),
+      });
       await tx.wait();
-      alert(`Confirmed tx: Staked and LP'd ${tokenIds.length} wheyfus`);
+      alert(
+        `Confirmed tx: Staked and LP'd ${tokenIds.length} wheyfus into ${
+          bondType === "CALL_OPTION" ? "Call option" : "Fee"
+        } bonds`
+      );
     } catch (e) {
       console.error(e);
       alert("error: " + (e.reason || e.message || e.toString()));
@@ -109,8 +112,8 @@ export const AddLiquidityAndStake = () => {
     <div style={{ position: "relative", width: "fit-content" }}>
       <h3>Add liquidity to sudo and stake!</h3>
       <p>
-        boosted sudoswap shared LP fixed term zero coupon bonds that yield call
-        options ("BSSLFTZCB" for short)
+        dual boosted sudoswap shared LP fixed term zero coupon bonds that yield
+        call options or swap fees ("DBSSLFTZCB" for short)
       </p>
 
       <WheyfuSelect value={tokenIds} onChange={setTokenIds} />
@@ -119,6 +122,11 @@ export const AddLiquidityAndStake = () => {
         LP amount: {tokenIds.length} wheyfus +{" "}
         {formatEther(price) * tokenIds.length} ether
       </p>
+
+      <select onChange={(e) => setBondType(e.target.value)} value={bondType}>
+        <option value={"CALL_OPTION"}>Call option bond</option>
+        <option value={"FEE"}>Fee bond</option>
+      </select>
 
       <select onChange={(e) => setTermIndex(e.target.value)} value={termIndex}>
         {TERMS.map(({ text }, termIndex) => (
@@ -131,6 +139,14 @@ export const AddLiquidityAndStake = () => {
       <ConnectWalletButton>
         <button onClick={() => addLiquidityAndStake()}>LP and bond</button>
       </ConnectWalletButton>
+
+      <p>
+        <i>
+          Call option bonds yield 5yr @ 0.1 eth call options on wheyfus.
+          <br />
+          Fee bonds yield swap fees generated from the xyk shared sudo pool.
+        </i>
+      </p>
 
       <img
         style={{ position: "absolute", right: 96, bottom: 0 }}
