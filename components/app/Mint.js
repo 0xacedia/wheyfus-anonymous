@@ -42,7 +42,7 @@ const useMint = () => {
   };
 
   useEffect(() => {
-    fetchAmount();
+    if (address) fetchAmount();
   }, [address, signer, blockNumber]);
 
   const mint = async (amount) => {
@@ -62,6 +62,7 @@ const useMint = () => {
 };
 
 export const Mint = () => {
+  const { address } = useAccount();
   const { amountLeft, mint, isWhitelisted } = useMint();
   const [amount, setAmount] = useState();
 
@@ -70,7 +71,9 @@ export const Mint = () => {
       <h3>Mint (uwu)</h3>
       <p>Premint invite only</p>
 
-      <p>You are {isWhitelisted ? "whitelisted! ^_^" : "not whitelisted"}</p>
+      {address && (
+        <p>You are {isWhitelisted ? "whitelisted! ^_^" : "not whitelisted"}</p>
+      )}
       {/* <p>If you did any of the following you are whitelisted!</p>
       <ul>
         <li>Participated in TheDAO in 2016</li>
