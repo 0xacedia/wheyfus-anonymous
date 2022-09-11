@@ -52,7 +52,7 @@ const useMint = () => {
 
   useEffect(() => {
     if (address) fetchAmount();
-  }, [address, signer, blockNumber]);
+  }, [address, signer, blockNumber, whitelist]);
 
   const mint = async (amount) => {
     try {
