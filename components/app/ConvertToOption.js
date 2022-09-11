@@ -2,6 +2,7 @@ import { Contract } from "ethers";
 import { useEffect, useState } from "react";
 import { useAccount, useBalance, useSigner } from "wagmi";
 import wheyfuAbi from "../../contracts/wheyfu.abi.json";
+import { ConnectWalletButton } from "../core/ConnectWalletButton";
 
 const useConvertToOption = () => {
   const { address } = useAccount();
@@ -48,7 +49,10 @@ export const ConvertToOption = () => {
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
-      <button onClick={() => convertToOption(amount)}>convert</button>
+
+      <ConnectWalletButton>
+        <button onClick={() => convertToOption(amount)}>convert</button>
+      </ConnectWalletButton>
       <p>Your call option token balance: {balance?.formatted} tokens</p>
 
       <img

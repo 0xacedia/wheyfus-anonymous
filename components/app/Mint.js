@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ConnectWalletButton } from "../core/ConnectWalletButton";
 import mintAbi from "../../contracts/mint.abi.json";
-import whitelist from "./whitelist.json";
 import { useAccount, useBlockNumber, useSigner } from "wagmi";
 import { Contract } from "ethers";
 import keccak256 from "keccak256";
@@ -18,10 +17,20 @@ const generateMerkleProof = (target) => {
 };
 
 const useMint = () => {
+  const [whitelist, setWhitelist] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [amountLeft, setAmountLeft] = useState(0);
   const { data: signer } = useSigner();
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({ watch: true });
+
+  useEffect(() => {
+    setLoading(true);
+    import("./whitelist.json").then((w) => {
+      setWhitelist(w.addresses);
+      setLoading(false);
+    });
+  }, []);
 
   const mintContract = new Contract(
     process.env.NEXT_PUBLIC_MINT_ADDRESS,
@@ -29,7 +38,7 @@ const useMint = () => {
     signer
   );
 
-  const isWhitelisted = whitelist.addresses.some(
+  const isWhitelisted = whitelist.some(
     (v) => v.toLowerCase() === address?.toLowerCase()
   );
 
@@ -58,12 +67,12 @@ const useMint = () => {
     }
   };
 
-  return { amountLeft, mint, isWhitelisted };
+  return { amountLeft, mint, isWhitelisted, loading };
 };
 
 export const Mint = () => {
   const { address } = useAccount();
-  const { amountLeft, mint, isWhitelisted } = useMint();
+  const { amountLeft, mint, isWhitelisted, loading } = useMint();
   const [amount, setAmount] = useState();
 
   return (
@@ -72,7 +81,13 @@ export const Mint = () => {
       <p>Premint invite only</p>
 
       {address && (
-        <p>You are {isWhitelisted ? "whitelisted! ^_^" : "not whitelisted"}</p>
+        <p>
+          {loading
+            ? "Checking if you are whitelisted..."
+            : `You are ${
+                isWhitelisted ? "whitelisted! ^_^" : "not whitelisted"
+              }`}
+        </p>
       )}
       {/* <p>If you did any of the following you are whitelisted!</p>
       <ul>
