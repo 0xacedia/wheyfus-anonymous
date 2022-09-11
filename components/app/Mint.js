@@ -6,23 +6,22 @@ import { Contract } from "ethers";
 import keccak256 from "keccak256";
 import { MerkleTree } from "merkletreejs";
 
-const generateMerkleProof = (target) => {
-  const { addresses } = whitelist;
-
-  const leaves = addresses.map((v) => keccak256(v));
-  const tree = new MerkleTree(leaves, keccak256, { sort: true });
-  const proof = tree.getHexProof(keccak256(target));
-
-  return proof;
-};
-
 const useMint = () => {
   const [whitelist, setWhitelist] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingProof, setLoadingProof] = useState(false);
   const [amountLeft, setAmountLeft] = useState(0);
   const { data: signer } = useSigner();
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({ watch: true });
+
+  const generateMerkleProof = (target) => {
+    const leaves = whitelist.map((v) => keccak256(v));
+    const tree = new MerkleTree(leaves, keccak256, { sort: true });
+    const proof = tree.getHexProof(keccak256(target));
+
+    return proof;
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -56,7 +55,10 @@ const useMint = () => {
 
   const mint = async (amount) => {
     try {
+      setLoadingProof(true);
+      await new Promise((r) => setTimeout(() => r(), 100));
       const proof = generateMerkleProof(address);
+      setLoadingProof(false);
       const tx = await mintContract.mint(amount, proof);
       await tx.wait();
       alert(`confirmed tx: minted ${amount} wheyfus`);
@@ -67,12 +69,12 @@ const useMint = () => {
     }
   };
 
-  return { amountLeft, mint, isWhitelisted, loading };
+  return { amountLeft, mint, isWhitelisted, loading, loadingProof };
 };
 
 export const Mint = () => {
   const { address } = useAccount();
-  const { amountLeft, mint, isWhitelisted, loading } = useMint();
+  const { amountLeft, mint, isWhitelisted, loading, loadingProof } = useMint();
   const [amount, setAmount] = useState();
 
   return (
@@ -108,6 +110,9 @@ export const Mint = () => {
       <ConnectWalletButton>
         <button onClick={() => mint(amount)}>mint</button>
       </ConnectWalletButton>
+      {loadingProof && (
+        <p>Constructing whitelist proof, may take a few seconds... (ɔ◔‿◔)ɔ ♥</p>
+      )}
     </div>
   );
 };
