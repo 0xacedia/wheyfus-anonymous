@@ -7,7 +7,7 @@ export const Socials = () => {
       <ul>
         <li>
           <a
-            href={`https://sudoswap.xyz/#/buy/${process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS}`}
+            href={`https://sudoswap.xyz/#/browse/buy/${process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS}`}
           >
             sudoswap
           </a>
