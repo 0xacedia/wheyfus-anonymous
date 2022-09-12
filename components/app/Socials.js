@@ -7,9 +7,9 @@ export const Socials = () => {
       <ul>
         <li>
           <a
-            href={`https://sudoswap.xyz/#/swap/${process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS}`}
+            href={`https://sudoswap.xyz/#/buy/${process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS}`}
           >
-            sudoswap (custom*)
+            sudoswap
           </a>
         </li>
         <li>
@@ -25,13 +25,6 @@ export const Socials = () => {
           <Link href="/docs">docs</Link>
         </li>
       </ul>
-
-      <p>
-        *sudoswap's frontend doesn't currently aggregate liquidity from pools
-        using <br />
-        the xyk curve so you have to interact directly with the pool using this
-        link
-      </p>
     </div>
   );
 };
