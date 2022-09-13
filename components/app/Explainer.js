@@ -7,7 +7,7 @@ export const Explainer = () => {
         <li>
           Take equal parts wheyfus and eth and LP them into a shared{" "}
           <a
-            href={`https://sudoswap.xyz/#/browse/buy/${process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS}`}
+            href={`https://sudoswap.xyz/#/browse/buy/${process.env.NEXT_PUBLIC_WHEYFU_ADDRESS}`}
           >
             sudoswap
           </a>{" "}
