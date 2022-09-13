@@ -61,7 +61,7 @@ export const CallOptions = () => {
                 BigNumber.from(orderDetails.erc721Assets[0].tokenId)
               ).toString()}{" "}
               wheyfus //{" "}
-              <a href={`https://rinkeby.putty.finance/order/${orderHash}`}>
+              <a href={`https://putty.finance/order/${orderHash}`}>
                 View on putty
               </a>
             </li>

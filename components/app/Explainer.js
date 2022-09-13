@@ -7,7 +7,7 @@ export const Explainer = () => {
         <li>
           Take equal parts wheyfus and eth and LP them into a shared{" "}
           <a
-            href={`https://sudoswap.xyz/#/swap/${process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS}`}
+            href={`https://sudoswap.xyz/#/browse/buy/${process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS}`}
           >
             sudoswap
           </a>{" "}
@@ -24,7 +24,7 @@ export const Explainer = () => {
         </li>
         <li>
           a: Convert those call option tokens into actual call options via{" "}
-          <a href="https://rinkeby.putty.finance">putty</a>.
+          <a href="https://putty.finance">putty</a>.
         </li>
         <li>a: Exercise the call options.</li>
         <li>a: With your new wheyfus you can then go back to step 2.</li>

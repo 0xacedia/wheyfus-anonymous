@@ -13,7 +13,7 @@ export const Socials = () => {
           </a>
         </li>
         <li>
-          <a href="https://rinkeby.putty.finance">putty</a>
+          <a href="https://putty.finance">putty</a>
         </li>
         <li>
           <a href="https://twitter.com">twitter (not ready yet)</a>
