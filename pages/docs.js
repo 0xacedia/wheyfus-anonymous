@@ -11,16 +11,10 @@ export default function Docs() {
       <hr />
 
       <p>
-        ok. ive been tasked with writing the docs. so here i'll prefix with a
-        personal message. before continuing i want to say thtat i believe in
-        both privacy and freedom. i think it's a disgrace that ross ulbricht is
-        locked up. i also think its a disgrace that tcash is sanctioned.
-        Obligatory examlep of govt incompetence:{" "}
+        Obligatory example of govt incompetence:
         <a href="https://en.wikipedia.org/wiki/Greek_government-debt_crisis#Chronology">
           https://en.wikipedia.org/wiki/Greek_government-debt_crisis#Chronology
         </a>
-        <br />
-        ok sorry, that's it - i'll avoid schizo posting here.
       </p>
 
       <h2>Mechanism overview</h2>
