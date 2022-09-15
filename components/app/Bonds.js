@@ -118,7 +118,7 @@ export const Bonds = ({ bondType }) => {
                 {Date.now() > expiration
                   ? "MATURED!"
                   : new Date(expiration).toISOString()}{" "}
-                // yield: {Number(earned).toFixed(4)}{" "}
+                // yield: {Number(earned).toFixed(8)}{" "}
                 {isFeeBond ? "ETH" : "call tokens"}
                 {Date.now() > expiration && (
                   <button onClick={() => claim(tokenId)}>claim</button>
