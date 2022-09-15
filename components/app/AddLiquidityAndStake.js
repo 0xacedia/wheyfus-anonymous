@@ -78,7 +78,7 @@ export const AddLiquidityAndStake = () => {
   const [tokenIds, setTokenIds] = useState([]);
   const [termIndex, setTermIndex] = useState(1);
   const [bondType, setBondType] = useState("CALL_OPTION");
-  const { price } = usePool();
+  const { price, tokenReserves, nftReserves } = usePool();
   const { data: signer } = useSigner();
 
   const addLiquidityAndStake = async () => {
