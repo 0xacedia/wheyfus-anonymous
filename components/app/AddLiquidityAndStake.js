@@ -94,7 +94,7 @@ export const AddLiquidityAndStake = () => {
           ? "addLiquidityAndOptionStake"
           : "addLiquidityAndFeeStake";
       const tx = await wheyfu[method](tokenIds, price, price, termIndex, {
-        value: price.mul(tokenIds.length),
+        value: tokenReserves.mul(tokenIds.length).div(nftReserves).add("50"),
       });
       await tx.wait();
       alert(
