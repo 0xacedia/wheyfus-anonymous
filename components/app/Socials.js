@@ -16,10 +16,10 @@ export const Socials = () => {
           <a href="https://putty.finance">putty</a>
         </li>
         <li>
-          <a href="https://twitter.com">twitter (not ready yet)</a>
+          <a href="https://twitter.com/wheyfusAnon">twitter</a>
         </li>
         <li>
-          <a href="https://discord.com">discord (not ready yet)</a>
+          <a href="https://discord.gg/D57c5H4V3r">discord</a>
         </li>
         <li>
           <Link href="/docs">docs</Link>
