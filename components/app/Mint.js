@@ -92,15 +92,15 @@ export const Mint = () => {
         </p>
       )}
 
-      {/* <p>If you did any of the following you are whitelisted!</p>
+      <p>If you did any of the following you are whitelisted!</p>
       <ul>
         <li>Participated in TheDAO in 2016</li>
         <li>Traded on etherdelta 2017</li>
-        <li>Received link in 2018</li>
+        <li>Transferred link in 2018</li>
         <li>Swapped on uni in 2019</li>
         <li>Farmed sushi in 2020</li>
         <li>Bonded in olympus in 2021</li>
-      </ul> */}
+      </ul>
 
       <label htmlFor="mint-amount">You can mint {amountLeft} wheyfus: </label>
       <input
