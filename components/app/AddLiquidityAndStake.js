@@ -142,7 +142,8 @@ export const AddLiquidityAndStake = () => {
 
       <p>
         <i>
-          Call option bonds yield 5yr @ 0.1 eth call options on wheyfus.
+          Call option bonds yield 5yr @ 0.1 eth american call options on
+          wheyfus.
           <br />
           Fee bonds yield swap fees generated from the xyk shared sudo pool.
         </i>

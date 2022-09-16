@@ -26,15 +26,15 @@ export default function Docs() {
         works by LP'ing into a shared xyk curve sudo pool then locking up the LP
         tokens for a fixed bond duration. The duration is variable (0 days, 30
         days, 90 days etc.). The longer you bond for, the higher your yield
-        boost. The bonds yield call option tokens which can be converted 1:1 for
-        putty call options on wheyfus. Each call option expires in 5 years and
-        has a strike of 0.1 eth. There is also LP fee farming. This works
-        similarly by LP'ing into a shared xyk curve sudo pool and also locking
-        up LP tokens for a fixed bond duration. Except this time, instead of
-        yield farming call option tokens, you yield farm the fees generated from
-        the sudoswap pool. Fees are distributed pro rata based on the amount
-        already staked and your yield boost. So there are 2 farms. 1 yielding
-        call option tokens and 1 yielding sudoswap LP fees.
+        boost. The bonds yield american call option tokens which can be
+        converted 1:1 for putty call options on wheyfus. Each call option
+        expires in 5 years and has a strike of 0.1 eth. There is also LP fee
+        farming. This works similarly by LP'ing into a shared xyk curve sudo
+        pool and also locking up LP tokens for a fixed bond duration. Except
+        this time, instead of yield farming call option tokens, you yield farm
+        the fees generated from the sudoswap pool. Fees are distributed pro rata
+        based on the amount already staked and your yield boost. So there are 2
+        farms. 1 yielding call option tokens and 1 yielding sudoswap LP fees.
       </p>
       <i>
         note: The yield from the LP farm is boosted by the yield from the staked
