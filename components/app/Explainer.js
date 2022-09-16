@@ -45,8 +45,8 @@ export const Explainer = () => {
       <ul>
         <li>The longer you bond, the higher your relative yield boost.</li>
         <li>
-          Each option expires in 5 years and has a strike of N wheyfus * 0.1
-          ether.
+          Each option (american) expires in 5 years and has a strike of N
+          wheyfus * 0.1 ether.
         </li>
         <li>
           18000 wheyfus in the form of option contracts are distributed over 900
