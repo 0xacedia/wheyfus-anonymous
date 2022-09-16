@@ -80,7 +80,6 @@ export const Mint = () => {
   return (
     <div>
       <h3>Mint (uwu)</h3>
-      <p>Premint invite only</p>
 
       {address && (
         <p>
