@@ -9,7 +9,7 @@ import { formatEther } from "ethers/lib/utils";
 import { TERMS } from "../../constants";
 import { useNfts } from "../../hooks/useNfts";
 
-const limit = 6;
+const limit = 2;
 const WheyfuSelect = ({ onChange, value }) => {
   const [offset, setOffset] = useState(0);
   const { address } = useAccount();
@@ -74,13 +74,13 @@ const WheyfuSelect = ({ onChange, value }) => {
       <button
         onClick={() => {
           onChange((old) =>
-            old.length === wheyfus.length
+            old.length === allWheyfus.length
               ? []
-              : wheyfus.map(({ tokenId }) => tokenId)
+              : allWheyfus.map(({ tokenId }) => tokenId)
           );
         }}
       >
-        {wheyfus?.length > 0 && value?.length === wheyfus?.length
+        {allWheyfus?.length > 0 && value?.length === allWheyfus?.length
           ? "Unselect all"
           : "Select all"}
       </button>
