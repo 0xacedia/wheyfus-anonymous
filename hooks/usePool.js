@@ -1,6 +1,12 @@
 import { BigNumber, Contract } from "ethers";
 import { useEffect, useState } from "react";
-import { erc20ABI, useBlockNumber, useProvider, useSigner } from "wagmi";
+import {
+  ContractMethodNoResultError,
+  erc20ABI,
+  useBlockNumber,
+  useProvider,
+  useSigner,
+} from "wagmi";
 import sudoPairAbi from "../contracts/sudoPair.abi.json";
 import { useNfts } from "./useNfts";
 
@@ -10,7 +16,7 @@ export const usePool = () => {
   const [tokenReserves, setTokenReserves] = useState();
   const { data: blockNumber } = useBlockNumber();
   const [nftReserves, setNftReserves] = useState();
-  const [wheyfus] = useNfts({
+  const [wheyfus, loadingNfts] = useNfts({
     limit: Infinity,
     offset: 0,
     address: process.env.NEXT_PUBLIC_SUDO_POOL_ADDRESS,
@@ -52,5 +58,12 @@ export const usePool = () => {
     ? tokenReserves.div(nftReserves)
     : BigNumber.from(0);
 
-  return { price, lpTokenSupply, tokenReserves, nftReserves, wheyfus };
+  return {
+    price,
+    lpTokenSupply,
+    tokenReserves,
+    nftReserves,
+    wheyfus,
+    loadingNfts,
+  };
 };

@@ -8,7 +8,7 @@ import { Contract } from "ethers";
 
 export const WithdrawLiquidity = () => {
   const [amount, setAmount] = useState();
-  const { price, lpTokenSupply, nftReserves, wheyfus } = usePool();
+  const { price, lpTokenSupply, nftReserves, wheyfus, loadingNfts } = usePool();
   const { address } = useAccount();
   const { data: balance } = useBalance({
     addressOrName: address,
@@ -43,17 +43,25 @@ export const WithdrawLiquidity = () => {
   return (
     <div>
       <h3>Withdraw liquidity</h3>
-      <input
-        id="withdraw-amount"
-        placeholder="amount of wheyfus"
-        type="number"
-        onChange={(e) => setAmount(e.target.value)}
-        value={amount}
-      />
-
-      <ConnectWalletButton>
-        <button onClick={() => removeLiquidity()}>withdraw liquidity</button>
-      </ConnectWalletButton>
+      {loadingNfts ? (
+        "Loading NFTs that can be withdrawn - may take a few secs (ɔ◔‿◔)ɔ ♥..."
+      ) : (
+        <>
+          {" "}
+          <input
+            id="withdraw-amount"
+            placeholder="amount of wheyfus"
+            type="number"
+            onChange={(e) => setAmount(e.target.value)}
+            value={amount}
+          />
+          <ConnectWalletButton>
+            <button onClick={() => removeLiquidity()}>
+              withdraw liquidity
+            </button>
+          </ConnectWalletButton>
+        </>
+      )}
 
       <p>
         You receive: {amount || 0} wheyfus + {amount * formattedPrice} ether
