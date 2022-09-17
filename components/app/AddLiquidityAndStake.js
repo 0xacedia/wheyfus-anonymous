@@ -9,7 +9,7 @@ import { formatEther } from "ethers/lib/utils";
 import { TERMS } from "../../constants";
 import { useNfts } from "../../hooks/useNfts";
 
-const limit = 2;
+const limit = 6;
 const WheyfuSelect = ({ onChange, value }) => {
   const [offset, setOffset] = useState(0);
   const { address } = useAccount();
