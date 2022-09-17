@@ -15,7 +15,7 @@ export default function Home() {
       <p>A friendly group of really healthy 2d grils</p>
       <Socials />
       <ConnectWalletButton />
-      <Mint />
+      {/* <Mint /> */}
       <AddLiquidityAndStake />
       <WithdrawLiquidity />
       <Explainer />
