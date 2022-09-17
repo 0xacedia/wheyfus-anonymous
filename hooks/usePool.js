@@ -8,7 +8,7 @@ export const usePool = () => {
   const [loading, setLoading] = useState(false);
   const [lpTokenSupply, setLpTokenSupply] = useState();
   const [tokenReserves, setTokenReserves] = useState();
-  // const { data: blockNumber } = useBlockNumber();
+  const { data: blockNumber } = useBlockNumber();
   const [nftReserves, setNftReserves] = useState();
   const [wheyfus] = useNfts({
     limit: Infinity,
@@ -46,7 +46,7 @@ export const usePool = () => {
     setLoading(true);
 
     fetchData().then(() => setLoading(false));
-  }, []);
+  }, [blockNumber]);
 
   const price = tokenReserves?.gt(0)
     ? tokenReserves.div(nftReserves)

@@ -47,5 +47,5 @@ export const useNfts = ({ offset, limit, address, tokenAddress }) => {
     [nfts, offset, limit]
   );
 
-  return [subNfts, loading];
+  return [subNfts, loading, nfts];
 };

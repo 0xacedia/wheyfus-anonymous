@@ -13,7 +13,7 @@ const limit = 6;
 const WheyfuSelect = ({ onChange, value }) => {
   const [offset, setOffset] = useState(0);
   const { address } = useAccount();
-  const [wheyfus, loading] = useNfts({
+  const [wheyfus, loading, allWheyfus] = useNfts({
     offset,
     limit,
     address,
@@ -70,6 +70,20 @@ const WheyfuSelect = ({ onChange, value }) => {
         </button>
       )}
       <button onClick={() => setOffset(offset + limit)}>{">>"}</button>
+
+      <button
+        onClick={() => {
+          onChange((old) =>
+            old.length === wheyfus.length
+              ? []
+              : wheyfus.map(({ tokenId }) => tokenId)
+          );
+        }}
+      >
+        {wheyfus?.length > 0 && value?.length === wheyfus?.length
+          ? "Unselect all"
+          : "Select all"}
+      </button>
     </div>
   );
 };
